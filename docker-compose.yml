@@ -9,17 +9,35 @@ services:
     depends_on:
       - mongodb
     networks:
-      - backend
+      - backend 
 
   product-service:
-    build: ./services/product-service
+    build:
+      context: ./services/product-service
+      dockerfile: Dockerfile
     container_name: product-service
     ports:
       - '4001:3000'
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/products-db
+      MONGODB_URI: mongodb://mongodb:27017/products-db
+      NODE_ENV: development
     depends_on:
       - mongodb
+    restart: unless-stopped  
+    networks:
+      - backend
+    volumes:
+      - ./services/product-service:/app
+  
+  order-service:
+    build: ./services/order-service
+    container_name: order-service
+    depends_on:
+      - mongodb
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/orders-db
     networks:
       - backend
   
