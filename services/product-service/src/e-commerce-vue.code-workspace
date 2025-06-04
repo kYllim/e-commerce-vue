@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "e-commerce-vue",
+			"path": "../../.."
+		},
+		{
+			"name": "frontend",
+			"path": "../../../../../e-commerce-vue-main-3/frontend"
+		}
+	],
+	"settings": {}
+}

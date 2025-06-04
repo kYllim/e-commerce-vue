@@ -1,0 +1,40 @@
+services:
+  auth-service:
+    build: ./services/auth-service
+    container_name: auth-service
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/auth-db
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+    networks:
+      - backend
+
+  product-service:
+    build: ./services/product-service
+    container_name: product-service
+    ports:
+      - '4001:3000'
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/products-db
+    depends_on:
+      - mongodb
+    networks:
+      - backend
+  
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - backend
+
+volumes:
+  mongo-data:
+
+networks:
+  backend:
