@@ -5,12 +5,13 @@ import { connectDB } from './config/database.js';
 import orderRoutes from './routes/orderRoutes.js';
 
 dotenv.config();
-
+ 
 const app = express();
 const port = process.env.PORT || 3002;
 
 // Connexion à la base de données seulement si pas en mode test
 if (process.env.NODE_ENV !== 'test') {
+  console.log(process.env)
   connectDB();
 }
 
