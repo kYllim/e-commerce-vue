@@ -13,7 +13,7 @@ export const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGODB_URI_PRODUCT);
 =======
     const conn = await mongoose.connect(process.env.MONGODB_URI);
->>>>>>> 1558eeaa4736b3baab2c24d5593b69384b9bade8
+>>>>>>> c9b522fbc5c7659e2358b72894c70c3a0983b72c
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`Error: ${error.message}`);
