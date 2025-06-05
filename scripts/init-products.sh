@@ -5,7 +5,7 @@ echo "Attente du service product..."
 sleep 10
 
 # URL du service
-API_URL="http://localhost:4001/api"
+API_URL="http://localhost:3000/api"
 
 # Token d'authentification (à adapter selon votre configuration)
 TOKEN="efrei_super_pass"
