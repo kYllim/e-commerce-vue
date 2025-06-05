@@ -9,7 +9,6 @@ services:
       - ./frontend:/app
     env_file:
       - .env.development
-      
   product-service:
     build:
       context: ./services/product-service
@@ -32,7 +31,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 5s
-
   auth-service:
     build:
       context: ./services/auth-service
@@ -53,7 +51,26 @@ services:
       timeout: 10s
       retries: 3
       start_period: 5s
-
+  order-service:
+    build:
+      context: ./services/order-service
+      dockerfile: Dockerfile.dev
+    container_name: order-service
+    ports:
+      - '3002:3002'
+    env_file:
+      - .env.development
+    depends_on:
+      - mongodb
+    restart: unless-stopped  
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
   mongodb:
     image: mongo
     container_name: mongodb
@@ -63,10 +80,8 @@ services:
       - mongo-data:/data/db
     networks:
       - backend
-
 volumes:
   mongo-data:
-
 networks:
   backend:
     driver: bridge
