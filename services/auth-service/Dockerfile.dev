@@ -1,0 +1,18 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copie des fichiers package.json et installation
+COPY package*.json ./
+RUN npm install
+
+# Installation globale de nodemon pour éviter les conflits
+RUN npm install -g nodemon
+
+# Copie du projet
+COPY . .
+
+EXPOSE 3001
+
+# Lancement avec nodemon
+CMD ["nodemon", "src/app.js"]
