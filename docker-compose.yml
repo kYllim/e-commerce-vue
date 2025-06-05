@@ -5,10 +5,8 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "5173:5173"
-    volumes:
-      - ./frontend:/app
-    env_file:
-      - .env.development
+    networks:
+      - backend
   product-service:
     build:
       context: ./services/product-service
@@ -23,8 +21,6 @@ services:
     restart: unless-stopped  
     networks:
       - backend
-    volumes:
-      - ./services/product-service:/app
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
       interval: 30s
