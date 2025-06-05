@@ -1,0 +1,11 @@
+services:
+  frontend:
+    image: e-commerce-vue-frontend:prod
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env.production
+    restart: unless-stopped
