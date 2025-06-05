@@ -1,3 +1,4 @@
+# Étape 1 : Build
 FROM node:18 AS builder
 
 WORKDIR /app
@@ -7,6 +8,7 @@ RUN npm install --production
 
 COPY . .
 
+# Étape 2 : Runtime minimal
 FROM node:18-slim AS runtime
 
 WORKDIR /app
