@@ -2,5 +2,6 @@ node_modules
 tests/
 test-results/
 Dockerfile*
+package-lock.json
 README.md
 *.log
