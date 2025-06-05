@@ -1,0 +1,6 @@
+node_modules
+tests/
+test-results/
+Dockerfile*
+README.md
+*.log
