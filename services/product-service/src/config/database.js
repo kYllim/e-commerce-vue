@@ -9,7 +9,11 @@ export const connectDB = async () => {
       return;
     }
 
+<<<<<<< HEAD
     const conn = await mongoose.connect(process.env.MONGODB_URI_PRODUCT);
+=======
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
+>>>>>>> c9b522fbc5c7659e2358b72894c70c3a0983b72c
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`Error: ${error.message}`);

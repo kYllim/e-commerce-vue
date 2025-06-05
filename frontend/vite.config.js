@@ -10,7 +10,11 @@ export default defineConfig({
     port: 8080,
     host: '0.0.0.0',
     cors: true,
+<<<<<<< HEAD
    /* proxy: {
+=======
+    proxy: {
+>>>>>>> c9b522fbc5c7659e2358b72894c70c3a0983b72c
       '/api/products': {
         target: process.env.VITE_PRODUCT_SERVICE_URL || 'http://product-service:3000',
         changeOrigin: true,
@@ -42,6 +46,7 @@ export default defineConfig({
         changeOrigin: true,
         
       }
+<<<<<<< HEAD
     }*/
       proxy: {
         '/api/products': {
@@ -74,5 +79,8 @@ export default defineConfig({
         }
       }
       
+=======
+    }
+>>>>>>> c9b522fbc5c7659e2358b72894c70c3a0983b72c
   }
 })
