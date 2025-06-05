@@ -1,15 +1,4 @@
 services:
-  auth-service:
-    build: ./services/auth-service
-    container_name: auth-service
-    env_file:
-      - .env
-    ports:
-      - "3001:3001"
-    depends_on:
-      - mongodb
-    networks:
-      - backend 
 
   product-service:
     build:
@@ -19,24 +8,13 @@ services:
     ports:
       - '4001:3000'
     env_file:
-      - .env
+      - .env.production
     depends_on:
       - mongodb
     restart: unless-stopped  
     networks:
       - backend
   
-  order-service:
-    build: ./services/order-service
-    container_name: order-service
-    depends_on:
-      - mongodb
-    ports:
-      - "3002:3002"
-    env_file:
-      - .env
-    networks:
-      - backend
   
   mongodb:
     image: mongo
