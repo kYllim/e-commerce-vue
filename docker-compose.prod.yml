@@ -1,14 +1,14 @@
-services:
+services: 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      - "5173:5173"
-    volumes:
-      - ./frontend:/app
     env_file:
-      - .env.production
+      - .env.development
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
   product-service:
     build:
       context: ./services/product-service
@@ -22,7 +22,13 @@ services:
       - mongodb
     restart: unless-stopped  
     networks:
-      - backend  
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
   auth-service:
     build:
       context: ./services/auth-service
