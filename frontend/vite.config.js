@@ -10,11 +10,7 @@ export default defineConfig({
     port: 8080,
     host: '0.0.0.0',
     cors: true,
-<<<<<<< HEAD
-   /* proxy: {
-=======
     proxy: {
->>>>>>> 1558eeaa4736b3baab2c24d5593b69384b9bade8
       '/api/products': {
         target: process.env.VITE_PRODUCT_SERVICE_URL || 'http://product-service:3000',
         changeOrigin: true,
@@ -46,41 +42,6 @@ export default defineConfig({
         changeOrigin: true,
         
       }
-<<<<<<< HEAD
-    }*/
-      proxy: {
-        '/api/products': {
-          target: 'http://localhost:4001', // produit
-          changeOrigin: true,
-        },
-        '/api/cart': {
-          target: 'http://localhost:4001', // panier
-          changeOrigin: true,
-        },
-        '/api/auth': {
-          target: 'http://localhost:3001', // auth
-          changeOrigin: true,
-          timeout: 60000,
-          configure: (proxy) => {
-            proxy.on('proxyReq', (proxyReq, req) => {
-              console.log(`[VITE PROXY] Proxying request to: ${proxyReq.path}`);
-            });
-            proxy.on('proxyRes', (proxyRes, req) => {
-              console.log(`[VITE PROXY] Response received with status: ${proxyRes.statusCode}`);
-            });
-            proxy.on('error', (err) => {
-              console.error(`[VITE PROXY] Proxy error: ${err.message}`);
-            });
-          },
-        },
-        '/api/orders': {
-          target: 'http://localhost:3002', // commandes
-          changeOrigin: true,
-        }
-      }
-      
-=======
     }
->>>>>>> 1558eeaa4736b3baab2c24d5593b69384b9bade8
   }
 })
