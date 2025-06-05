@@ -1,21 +1,59 @@
-services:
-
+services: 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    env_file:
+      - .env.development
+      
   product-service:
     build:
       context: ./services/product-service
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: product-service
     ports:
       - '4001:3000'
     env_file:
-      - .env.production
+      - .env.development
     depends_on:
       - mongodb
     restart: unless-stopped  
     networks:
       - backend
-  
-  
+    volumes:
+      - ./services/product-service:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  auth-service:
+    build:
+      context: ./services/auth-service
+      dockerfile: Dockerfile.dev
+    container_name: auth-service
+    env_file:
+      - .env.development
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/auth/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
   mongodb:
     image: mongo
     container_name: mongodb
@@ -31,3 +69,4 @@ volumes:
 
 networks:
   backend:
+    driver: bridge
