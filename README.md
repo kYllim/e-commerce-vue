@@ -199,6 +199,23 @@ Le frontend ne pouvait pas fonctionner seul avec Vite.
 
 ✅ Solution : ajouter `nodemon` dans les dépendances (`npm install --save-dev nodemon`) ou exécuter avec `node` en production.
 
+### Problème de connexion à la base de données MongoDB
+
+Lors de la connexion d’un service à la base de données MongoDB, celui-ci n’arrivait pas à établir la connexion. L’erreur provenait du fait que le service ne parvenait pas à résoudre le nom d’hôte utilisé.
+
+✅ **Solution** : Dans le fichier `docker-compose.yml`, le nom du service MongoDB est utilisé comme nom d’hôte. Cependant, dans nos variables d’environnement, l’URL indiquait :
+
+**URL :** `mongodb://mongo:27017`
+
+Or, notre service était défini ainsi :
+
+```yaml
+mongodb:
+  image: mongo
+```
+
+Le nom correct à utiliser dans l'URL est donc **mongodb** (et non mongo), car c’est le **nom du service Docker**.
+
 ## Bonnes pratiques appliquées
 
 - **Docker multi-stage builds** pour des images légères en production.
